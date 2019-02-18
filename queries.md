@@ -139,34 +139,10 @@ CustomerID	CustomerName	City	Count(OrderID)
 55	Old World Delicatessen	Anchorage	4
 
 ## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
+delete from customers where customerId not in (select customerid from orders)
+
+Result:
+You have made changes to the database. Rows affected: 17
 
 
-From sqlite studio:
 
-PRAGMA foreign_keys = 0;
-
-CREATE TABLE sqlitestudio_temp_table AS SELECT *
-                                          FROM accounts;
-
-DROP TABLE accounts;
-
-CREATE TABLE accounts (
-    id     INTEGER       PRIMARY KEY AUTOINCREMENT
-                         NOT NULL
-                         UNIQUE,
-    name   VARCHAR (255) UNIQUE
-                         NOT NULL,
-    budget DECIMAL       NOT NULL
-);
-
-INSERT INTO accounts (
-                         id,
-                         name
-                     )
-                     SELECT id,
-                            name
-                       FROM sqlitestudio_temp_table;
-
-DROP TABLE sqlitestudio_temp_table;
-
-PRAGMA foreign_keys = 1;
