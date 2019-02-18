@@ -108,10 +108,35 @@ CustomerID	CustomerName	Count(OrderID)
 5	Berglunds snabbköp	3
 
 
-
 ## list customers names and the number of orders per customer. Sort the list by number of orders in descending order. _Ernst Handel_ should be at the top with 10 orders followed by _QUICK-Stop_, _Rattlesnake Canyon Grocery_ and _Wartian Herkku_ with 7 orders each.
+SELECT Orders.CustomerId, Customers.CustomerName, Count(OrderID)
+FROM Orders
+INNER JOIN Customers
+ON Orders.CustomerID=Customers.CustomerID
+Group by CustomerName 
+Order by Count(OrderID) desc
+
+Number of Records: 74
+CustomerID	CustomerName	Count(OrderID)
+20	Ernst Handel	10
+63	QUICK-Stop	7
+65	Rattlesnake Canyon Grocery	7
+87	Wartian Herkku	7
 
 ## list orders grouped by customer's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
+
+SELECT Orders.CustomerId, Customers.CustomerName, Customers.City, Count(OrderID)
+FROM Orders
+INNER JOIN Customers
+ON Orders.CustomerID=Customers.CustomerID
+Group by City
+Order by City
+
+Number of Records: 58
+CustomerID	CustomerName	City	Count(OrderID)
+17	Drachenblut Delikatessend	Aachen	2
+65	Rattlesnake Canyon Grocery	Albuquerque	7
+55	Old World Delicatessen	Anchorage	4
 
 ## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
 
